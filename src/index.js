@@ -5,6 +5,7 @@ function lerArquivo(caminho){
     var listaDeTextos = []
     var listaDeArquivos = fs.readdirSync(caminho)
     listaDeArquivos.pop()
+    listaDeArquivos.pop()
     listaDeArquivos = listaDeArquivos.sort((a, b) => (a - b))
     for(lista of listaDeArquivos){
         let arquivos = fs.readdirSync(caminho+'/'+lista)

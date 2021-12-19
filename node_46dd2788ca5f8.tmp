@@ -14,12 +14,12 @@ const url      = 'https://business.facebook.com/creatorstudio/pre_published?cont
 const caminho  = process.env.POST_PATH
 
 const arquivos = lerArquivo(caminho)
-// for(let x =270; x <= 300; x++){
+// for(let x =220; x <= 300; x++){
 //     console.log(arquivos[x])
 // }
 // return
-// 293
-const dates    = gerarDias(17, 12, 2021, 10)
+// 243
+const dates    = gerarDias(07, 12, 2021, 10)
 const countTime = [   
     {hora: '12',minuto: '00', meridiem: 'p'},
     {hora: '1', minuto: '00', meridiem: 'p'},
@@ -41,14 +41,14 @@ async function main(){
         await page.setCookie(...cookies)
         await page.goto(url, { waitUntil: 'networkidle2' })
         
-        let start = 270
+        let start = 220
         for (let d in dates) {
             for (let t in countTime) {
                 try{
                     await agendarPost(dates[d], countTime[t], arquivos[start])
                 }
                 catch{
-                    await tryAgendarPost(dates[d], countTime[t], arquivos[start])
+                    await tryAgendarPost()
                 }
                 start++
             }
@@ -61,15 +61,15 @@ async function main(){
     }
 
 }
-async function tryAgendarPost(date, time, arquivo){
+async function tryAgendarPost(){
     console.log('| - tryAgendarPost')
     try{
         await page.goto(url, { waitUntil: 'networkidle2' })
-        await agendarPost(date, time, arquivo)
+        await agendarPost(dates[d], countTime[t], arquivos[start])
     }
     catch{
         console.log('| - tryAgendarPost catch')
-        await tryAgendarPost(date, time, arquivo)
+        tryAgendarPost()
     }
 }
 
